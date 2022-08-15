@@ -21,7 +21,7 @@ const getSuggestions = value => {
 
 const getSuggestionValue = suggestion => suggestion;
 const renderSuggestion = suggestion => (
-    <div>
+    <div className='react-autosuggest__suggestion-container'>
         {suggestion}
     </div>
 );
@@ -58,7 +58,8 @@ class SearchInput extends React.Component {
         const { value, suggestions } = this.state;
         const inputProps = {
             value,
-            className: 'react-autosuggest__search-bar',
+            placeholder: 'Search news',
+            className: 'react-autosuggest__search-bar form-control',
             onChange: this.onChange,
         };
 

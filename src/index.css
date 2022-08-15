@@ -7,7 +7,7 @@ body {
 
 }
 
-body > div {
+body>div {
   background-color: white;
 }
 
@@ -48,8 +48,40 @@ body > div {
   align-items: center;
 }
 
-#searchBar {
+.react-autosuggest__container {
   width: 60%;
+  position: relative;
+}
+
+.react-autosuggest__search-bar {
+  width: 100%
+}
+
+.react-autosuggest__suggestions-container--open {
+  position: absolute;
+  z-index: 999;
+  width: 100%;
+  padding: 0.2rem;
+  background-color: white;
+  border: 1px #dddddd solid;
+  border-radius: 3px;
+}
+
+.react-autosuggest__suggestions-list {
+  margin: 0.15rem;
+}
+
+.react-autosuggest__suggestion {
+  margin: 0;
+  padding: 0.4rem;
+  z-index: 99;
+  /* border-radius: 3px; */
+  list-style: none;
+  cursor: pointer;
+}
+
+.react-autosuggest__suggestion:hover {
+  background-color: #549fd8;
 }
 
 .row {
@@ -105,18 +137,34 @@ ul {
   justify-content: space-between;
 }
 
+.filter-title,
+.form-check,
+#searchSuggestions>li {
+  user-select: none;
+  /* supported by Chrome and Opera */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+}
+
 @media (max-width: 767px) {
   .card {
-      width: 400px;
+    width: 400px;
   }
 }
 
 @media (min-width: 768px) {
   .cards {
-      padding: 4.75rem;
+    padding: 4.75rem;
   }
+
   .card {
-      width: 300px;
+    width: 300px;
   }
 }
 
@@ -126,28 +174,27 @@ ul {
   }
 } */
 
-@media (max-width: 991px) {
-}
+@media (max-width: 991px) {}
 
 @media (min-width: 992px) {
   .cards {
-      padding: 3rem;
+    padding: 3rem;
   }
 
 }
 
 @media (min-width: 1200px) {
   .cards {
-      padding: 1.5rem;
+    padding: 1.5rem;
   }
 }
 
 @media (min-width: 1400px) {
   .cards {
-      padding: 3rem;
+    padding: 3rem;
   }
-  
+
   .card {
-      width: 275px;
+    width: 275px;
   }
 }
