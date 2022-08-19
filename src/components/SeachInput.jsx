@@ -46,13 +46,13 @@ class SearchInput extends React.Component {
         this.setState({
             suggestions: getSuggestions(value)
         })
-    }
+    };
 
     onSuggestionsClearRequested = () => {
         this.setState({
             suggestions: []
         });
-    }
+    };
 
     render() {
         const { value, suggestions } = this.state;
@@ -72,8 +72,8 @@ class SearchInput extends React.Component {
                 renderSuggestion={renderSuggestion}
                 inputProps={inputProps}
             />
-        )
-    }
-}
+        );
+    };
+};
 
 export default SearchInput;

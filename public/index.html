@@ -3,382 +3,380 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Web site created using create-react-app" />
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  <title>React App</title>
+  <title>Latest News</title>
 
 </head>
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div class="container-lg">
-    <section class="row top-section border-bottom">
-      <div class="col col-md-3 col-xl-2">
-        <button class="btn btn-danger d-lg-none" type="button" data-bs-toggle="offcanvas"
-          data-bs-target="#filtersSidebar" aria-controls="filtersSidebar">Show filters</button>
-        <div class="form-floating select-lang d-none d-lg-inline">
-          <select class="form-select" id="countrySelect" aria-label="Floating label select example">
-            <option selected>Polish</option>
-            <option value="1">English</option>
-          </select>
-          <label for="countrySelect">Site Language</label>
-        </div>
-      </div>
-      <div id="searchFormRoot" class="col col-md-9 col-xl-10 d-flex justify-content-end"></div>
-    </section>
-    <div class="row">
-      <div class="col col-lg-3 col-xxl-2 border-end pt-5">
-        <div class="offcanvas-lg offcanvas-start p-2" data-bs-scroll="true" tabindex="-1" id="filtersSidebar"
-          aria-labelledby="offcanvasResponsiveLabel">
-          <div class="offcanvas-header">
-            <div></div>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#filtersSidebar"
-              aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body">
-            <div class="form-floating select-lang mb-4 d-lg-none">
-              <select class="form-select" id="countrySelect" aria-label="Floating label select example">
-                <option selected>Polish</option>
-                <option value="1">English</option>
-              </select>
-              <label for="countrySelect">Site Language</label>
-            </div>
-            <div id="filters">
-              <div class="filter">
-                <p class="filter-title" data-bs-toggle="collapse" data-bs-target="#collapseFilterCountry"
-                  aria-expanded="false" aria-controls="collapseFilterCountry">Country</p>
-                <div class="collapse show" id="collapseFilterCountry">
-                  <ul class="filter-params">
-                    <li class="form-check">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filterCountryPoland">
-                        <label class="form-check-label" for="filterCountryPoland">
-                          Poland
-                        </label>
-                      </div>
-                    </li>
-                    <li class="form-check">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filterCountryIceland">
-                        <label class="form-check-label" for="filterCountryIceland">
-                          Iceland
-                        </label>
-                      </div>
-                    </li>
-                    <li class="form-check">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filterCountryHungary">
-                        <label class="form-check-label" for="filterCountryHungary">
-                          Hungary
-                        </label>
-                      </div>
-                    </li>
-                    <li class="form-check">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filterCountryIreland">
-                        <label class="form-check-label" for="filterCountryIreland">
-                          Ireland
-                        </label>
-                      </div>
-                    </li>
-                    <li class="form-check">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filterCountryCzechRep">
-                        <label class="form-check-label" for="filterCountryCzechRep">
-                          Czech Republic
-                        </label>
-                      </div>
-                    </li>
-                    <li class="form-check">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filterCountryGermany">
-                        <label class="form-check-label" for="filterCountryGermany">
-                          Germany
-                        </label>
-                      </div>
-                    </li>
-                    <li class="form-check">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filterCountryBulgaria">
-                        <label class="form-check-label" for="filterCountryBulgaria">
-                          Bulgaria
-                        </label>
-                      </div>
-                    </li>
-                    <li class="form-check">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filterCountryUK">
-                        <label class="form-check-label" for="filterCountryUK">
-                          United Kingdom
-                        </label>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="filter">
-                <p class="filter-title" data-bs-toggle="collapse" data-bs-target="#collapseFilterLanguage"
-                  aria-expanded="false" aria-controls="collapseFilterLanguage">Language</p>
-                <div class="collapse show" id="collapseFilterLanguage">
-                  <ul class="filter-params">
-                    <li class="form-check">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filterLangPolish">
-                        <label class="form-check-label" for="filterLangPolish">
-                          Polish
-                        </label>
-                      </div>
-                    </li>
-                    <li class="form-check">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filterLangDutch">
-                        <label class="form-check-label" for="filterLangDutch">
-                          Dutch
-                        </label>
-                      </div>
-                    </li>
-                    <li class="form-check">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filterLangHungarian">
-                        <label class="form-check-label" for="filterLangHungarian">
-                          Hungarian
-                        </label>
-                      </div>
-                    </li>
-                    <li class="form-check">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filterLangGerman">
-                        <label class="form-check-label" for="filterLangGerman">
-                          German
-                        </label>
-                      </div>
-                    </li>
-                    <li class="form-check">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filterLangSpanish">
-                        <label class="form-check-label" for="filterLangSpanish">
-                          Spanish
-                        </label>
-                      </div>
-                    </li>
-                    <li class="form-check">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filterLangEnglish">
-                        <label class="form-check-label" for="filterLangEnglish">
-                          English
-                        </label>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="filter">
-                <p class="filter-title" data-bs-toggle="collapse" data-bs-target="#collapseFilterCat"
-                  aria-expanded="false" aria-controls="collapseFilterCat">Category</p>
-                <div class="collapse show" id="collapseFilterCat">
-                  <ul class="filter-params">
-                    <li class="form-check">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filterCatSport">
-                        <label class="form-check-label" for="filterCatSport">
-                          Sport
-                        </label>
-                      </div>
-                    </li>
-                    <li class="form-check">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filterCatTech">
-                        <label class="form-check-label" for="filterCatTech">
-                          Technology
-                        </label>
-                      </div>
-                    </li>
-                    <li class="form-check">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filterCatScience">
-                        <label class="form-check-label" for="filterCatScience">
-                          Science
-                        </label>
-                      </div>
-                    </li>
-                    <li class="form-check">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filterCatPolitics">
-                        <label class="form-check-label" for="filterCatPolitics">
-                          Politics
-                        </label>
-                      </div>
-                    </li>
-                    <li class="form-check">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filterCatWeather">
-                        <label class="form-check-label" for="filterCatWeather">
-                          Weather
-                        </label>
-                      </div>
-                    </li>
-                    <li class="form-check">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="filterCatBussiness">
-                        <label class="form-check-label" for="filterCatBussiness">
-                          Bussiness
-                        </label>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+  <div id="root">
+    <!-- <div class="container-lg">
+      <section class="row top-section border-bottom">
+        <div class="col col-md-3 col-xl-2">
+          <button class="btn btn-danger d-lg-none" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#filtersSidebar" aria-controls="filtersSidebar">Show filters</button>
+          <div class="form-floating select-lang d-none d-lg-inline">
+            <select class="form-select" id="countrySelect" aria-label="Floating label select example">
+              <option selected>Polish</option>
+              <option value="1">English</option>
+            </select>
+            <label for="countrySelect">Site Language</label>
           </div>
         </div>
-      </div>
-      <div class="col col-12 col-lg-9 col-xxl-10 x-5 pt-5 cards">
-        <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xxl-3 gy-5">
-          <div class="col col-card">
-            <div class="card mb-3">
-              <img
-                src="http://www.pcguru.hu/uploads/news/mid/horizon-forbidden-west-uj-elozetesen-a-nyugati-videkek-kihivasai-hirek-4acebfe659a8326cb803-mid.jpg"
-                class="card-img-top" alt="News image">
-              <div class="card-body">
-                <div class="card-add-info pb-2">
-                  <p class="">Technology</p>
-                  <p class="text-end">2022-02-04 07:07:01</p>
-                </div>
-                <h5 class="card-title">
-                  Horizon Forbidden West – Új előzetesen a nyugati vidékek kihívásai
-                </h5>
-                <p class="card-text pt-2">Aloy kalandjának folytatásában úgy tűnik nem sok alkalmunk
-                  lesz tétlenül, malmozva ücsörögni.</p>
-
-                <div class="card-add-info pt-2">
-                  <p class="">hungarian</p>
-                  <p class="text-end">hungary</p>
-                </div>
-              </div>
+        <div id="searchFormRoot" class="col col-md-9 col-xl-10 d-flex justify-content-end"></div>
+      </section>
+      <div class="row">
+        <div class="col col-lg-3 col-xxl-2 border-end pt-5">
+          <div class="offcanvas-lg offcanvas-start p-2" data-bs-scroll="true" tabindex="-1" id="filtersSidebar"
+            aria-labelledby="offcanvasResponsiveLabel">
+            <div class="offcanvas-header">
+              <div></div>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#filtersSidebar"
+                aria-label="Close"></button>
             </div>
-          </div>
-          <div class="col col-card">
-            <div class="card mb-3">
-              <div class="card-body">
-                <div class="card-add-info pb-2">
-                  <p class="">business</p>
-                  <p class="text-end">2022-02-04 07:06:55</p>
-                </div>
-                <h5 class="card-title">
-                  Wiceprezes Kruka sprzedał akcje za 4,1 mln zł
-                </h5>
-                <p class="card-text pt-2">Michał Zasępa, wiceprezes Kruka, sprzedał na sesjach od 31
-                  stycznia do 3 lutego akcje warte 4,1 mln zł.</p>
-
-                <div class="card-add-info pt-2">
-                  <p class="">polish</p>
-                  <p class="text-end">poland</p>
-                </div>
+            <div class="offcanvas-body">
+              <div class="form-floating select-lang mb-4 d-lg-none">
+                <select class="form-select" id="countrySelect" aria-label="Floating label select example">
+                  <option selected>Polish</option>
+                  <option value="1">English</option>
+                </select>
+                <label for="countrySelect">Site Language</label>
               </div>
-            </div>
-          </div>
-          <div class="col col-card">
-            <div class="card mb-3">
-              <div class="card-body">
-                <div class="card-add-info pb-2">
-                  <p class="">business</p>
-                  <p class="text-end">2022-02-04 07:06:55</p>
-                </div>
-                <h5 class="card-title">
-                  Byli szefowie Satisu wezwali do zrzeczenia się roszczeń
-                </h5>
-                <p class="card-text pt-2">Grzegorz Kiczmachowski i Szymon Pura, byli menedżerowie Satis
-                  Group, przesłali do spółki wezwanie do zrzeczenia się roszczeń.</p>
-
-                <div class="card-add-info pt-2">
-                  <p class="">polish</p>
-                  <p class="text-end">poland</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col col-card">
-            <div class="card mb-3">
-              <div class="card-body">
-                <div class="card-add-info pb-2">
-                  <p class="">sports</p>
-                  <p class="text-end">2022-02-04 07:05</p>
-                </div>
-                <h5 class="card-title">
-                  PSV komt na het ‘nein’ van Schmidt met een lokroep, pakt de Teletijdmachine of gaat
-                  weer iets nieuws doen
-                </h5>
-                <p class="card-text pt-2">Kort nadat de spelersgroep van PSV gistermorgen door trainer
-                  Roger Schmidt zelf was ingelicht, drukte de persafdeling van de Eindhovense club op
-                  alle beschikbare knoppen die iets aan de buitenwereld verzenden. De coach verlengt
-                  zijn aflopende contract niet en dus heeft PSV alle tijd om voor volgend seizoen een
-                  opvolger aan te trekken. Wie moet dat worden?</p>
-
-                <div class="card-add-info pt-2">
-                  <div class="card-add-info-region">
-                    <p class="text-end">netherland</p>
-                    <p class="">dutch</p>
+              <div id="filters">
+                <div class="filter">
+                  <p class="filter--title" data-bs-toggle="collapse" data-bs-target="#collapseFilterCountry"
+                    aria-expanded="false" aria-controls="collapseFilterCountry">Country</p>
+                  <div class="collapse show" id="collapseFilterCountry">
+                    <ul class="filter-params">
+                      <li class="form-check">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="filterCountryPoland">
+                          <label class="form-check-label" for="filterCountryPoland">
+                            Poland
+                          </label>
+                        </div>
+                      </li>
+                      <li class="form-check">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="filterCountryIceland">
+                          <label class="form-check-label" for="filterCountryIceland">
+                            Iceland
+                          </label>
+                        </div>
+                      </li>
+                      <li class="form-check">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="filterCountryHungary">
+                          <label class="form-check-label" for="filterCountryHungary">
+                            Hungary
+                          </label>
+                        </div>
+                      </li>
+                      <li class="form-check">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="filterCountryIreland">
+                          <label class="form-check-label" for="filterCountryIreland">
+                            Ireland
+                          </label>
+                        </div>
+                      </li>
+                      <li class="form-check">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="filterCountryCzechRep">
+                          <label class="form-check-label" for="filterCountryCzechRep">
+                            Czech Republic
+                          </label>
+                        </div>
+                      </li>
+                      <li class="form-check">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="filterCountryGermany">
+                          <label class="form-check-label" for="filterCountryGermany">
+                            Germany
+                          </label>
+                        </div>
+                      </li>
+                      <li class="form-check">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="filterCountryBulgaria">
+                          <label class="form-check-label" for="filterCountryBulgaria">
+                            Bulgaria
+                          </label>
+                        </div>
+                      </li>
+                      <li class="form-check">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="filterCountryUK">
+                          <label class="form-check-label" for="filterCountryUK">
+                            United Kingdom
+                          </label>
+                        </div>
+                      </li>
+                    </ul>
                   </div>
-                  <p>Fox News</p>
+                </div>
+                <div class="filter">
+                  <p class="filter--title" data-bs-toggle="collapse" data-bs-target="#collapseFilterLanguage"
+                    aria-expanded="false" aria-controls="collapseFilterLanguage">Language</p>
+                  <div class="collapse show" id="collapseFilterLanguage">
+                    <ul class="filter-params">
+                      <li class="form-check">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="filterLangPolish">
+                          <label class="form-check-label" for="filterLangPolish">
+                            Polish
+                          </label>
+                        </div>
+                      </li>
+                      <li class="form-check">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="filterLangDutch">
+                          <label class="form-check-label" for="filterLangDutch">
+                            Dutch
+                          </label>
+                        </div>
+                      </li>
+                      <li class="form-check">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="filterLangHungarian">
+                          <label class="form-check-label" for="filterLangHungarian">
+                            Hungarian
+                          </label>
+                        </div>
+                      </li>
+                      <li class="form-check">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="filterLangGerman">
+                          <label class="form-check-label" for="filterLangGerman">
+                            German
+                          </label>
+                        </div>
+                      </li>
+                      <li class="form-check">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="filterLangSpanish">
+                          <label class="form-check-label" for="filterLangSpanish">
+                            Spanish
+                          </label>
+                        </div>
+                      </li>
+                      <li class="form-check">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="filterLangEnglish">
+                          <label class="form-check-label" for="filterLangEnglish">
+                            English
+                          </label>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="filter">
+                  <p class="filter--title" data-bs-toggle="collapse" data-bs-target="#collapseFilterCat"
+                    aria-expanded="false" aria-controls="collapseFilterCat">Category</p>
+                  <div class="collapse show" id="collapseFilterCat">
+                    <ul class="filter-params">
+                      <li class="form-check">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="filterCatSport">
+                          <label class="form-check-label" for="filterCatSport">
+                            Sport
+                          </label>
+                        </div>
+                      </li>
+                      <li class="form-check">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="filterCatTech">
+                          <label class="form-check-label" for="filterCatTech">
+                            Technology
+                          </label>
+                        </div>
+                      </li>
+                      <li class="form-check">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="filterCatScience">
+                          <label class="form-check-label" for="filterCatScience">
+                            Science
+                          </label>
+                        </div>
+                      </li>
+                      <li class="form-check">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="filterCatPolitics">
+                          <label class="form-check-label" for="filterCatPolitics">
+                            Politics
+                          </label>
+                        </div>
+                      </li>
+                      <li class="form-check">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="filterCatWeather">
+                          <label class="form-check-label" for="filterCatWeather">
+                            Weather
+                          </label>
+                        </div>
+                      </li>
+                      <li class="form-check">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="filterCatBussiness">
+                          <label class="form-check-label" for="filterCatBussiness">
+                            Bussiness
+                          </label>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col col-card">
-            <div class="card mb-3">
-              <div class="card-body">
-                <div class="card-add-info pb-2">
-                  <p class="">entertainment</p>
-                  <p class="text-end">2022-02-03 13:49:30</p>
-                </div>
-                <h5 class="card-title">
-                  Megerősítve a Ghostwire: Tokyo márciusi megjelenése, friss látnivalókat is kaptunk a
-                  játékból
-                </h5>
-                <p class="card-text pt-2">A tegnap esti órákban lezajlott PlayStation Showcase online
-                  esemény részeként minden, és valóban minden a Ghostwire: Tokyo című videojátékról
-                  szólt, mely csapat bár manapság a Microsoft égisze alatt ügyködik, azonban van még
-                  egy tartozásuk a Sony felé. Ezt pedig nemsokára törlesztik majd, hiszen a kérdéses
-                  eventen #link#htt...</p>
+        </div>
+        <div class="col col-12 col-lg-9 col-xxl-10 x-5 pt-5 cards">
+          <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xxl-3 gy-5">
+            <div class="col col-card">
+              <div class="card mb-3">
+                <img
+                  src="http://www.pcguru.hu/uploads/news/mid/horizon-forbidden-west-uj-elozetesen-a-nyugati-videkek-kihivasai-hirek-4acebfe659a8326cb803-mid.jpg"
+                  class="card-img-top" alt="News image">
+                <div class="card-body">
+                  <div class="card__add-info pb-2">
+                    <p class="">Technology</p>
+                    <p class="text-end">2022-02-04 07:07:01</p>
+                  </div>
+                  <h5 class="card-title">
+                    Horizon Forbidden West – Új előzetesen a nyugati vidékek kihívásai
+                  </h5>
+                  <p class="card-text pt-2">Aloy kalandjának folytatásában úgy tűnik nem sok alkalmunk
+                    lesz tétlenül, malmozva ücsörögni.</p>
 
-                <div class="card-add-info pt-2">
-                  <p class="">hungarian</p>
-                  <p class="text-end">hungary</p>
+                  <div class="card__add-info pt-2">
+                    <p class="">hungarian</p>
+                    <p class="text-end">hungary</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="col col-card">
-            <div class="card mb-3">
-              <img src="https://images.midilibre.fr/api/v1/images/view/61fbd9b23e454607aa253d23/standard/image.jpg?v=1"
-                class="card-img-top" alt="News image">
-              <div class="card-body">
-                <div class="card-add-info pb-2">
-                  <p class="">Technology</p>
-                  <p class="text-end">2022-02-03 13:49:30</p>
-                </div>
-                <h5 class="card-title">
-                  Retour en prison pour les époux Balkany ? La justice révoque leur placement sous
-                  bracelet électronique
-                </h5>
-                <p class="card-text pt-2">Selon Le Figaro, la cour d'appel de Rouen a confirmé ce jeudi
-                  3
-                  février la révocation de l'aménagement de peine de Patrick et Isabell</p>
+            <div class="col col-card">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="card__add-info pb-2">
+                    <p class="">business</p>
+                    <p class="text-end">2022-02-04 07:06:55</p>
+                  </div>
+                  <h5 class="card-title">
+                    Wiceprezes Kruka sprzedał akcje za 4,1 mln zł
+                  </h5>
+                  <p class="card-text pt-2">Michał Zasępa, wiceprezes Kruka, sprzedał na sesjach od 31
+                    stycznia do 3 lutego akcje warte 4,1 mln zł.</p>
 
-                <div class="card-add-info pt-2">
-                  <p class="">Polish</p>
-                  <p class="text-end">Poland</p>
+                  <div class="card__add-info pt-2">
+                    <p class="">polish</p>
+                    <p class="text-end">poland</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col col-card">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="card__add-info pb-2">
+                    <p class="">business</p>
+                    <p class="text-end">2022-02-04 07:06:55</p>
+                  </div>
+                  <h5 class="card-title">
+                    Byli szefowie Satisu wezwali do zrzeczenia się roszczeń
+                  </h5>
+                  <p class="card-text pt-2">Grzegorz Kiczmachowski i Szymon Pura, byli menedżerowie Satis
+                    Group, przesłali do spółki wezwanie do zrzeczenia się roszczeń.</p>
+
+                  <div class="card__add-info pt-2">
+                    <p class="">polish</p>
+                    <p class="text-end">poland</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col col-card">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="card__add-info pb-2">
+                    <p class="">sports</p>
+                    <p class="text-end">2022-02-04 07:05</p>
+                  </div>
+                  <h5 class="card-title">
+                    PSV komt na het ‘nein’ van Schmidt met een lokroep, pakt de Teletijdmachine of gaat
+                    weer iets nieuws doen
+                  </h5>
+                  <p class="card-text pt-2">Kort nadat de spelersgroep van PSV gistermorgen door trainer
+                    Roger Schmidt zelf was ingelicht, drukte de persafdeling van de Eindhovense club op
+                    alle beschikbare knoppen die iets aan de buitenwereld verzenden. De coach verlengt
+                    zijn aflopende contract niet en dus heeft PSV alle tijd om voor volgend seizoen een
+                    opvolger aan te trekken. Wie moet dat worden?</p>
+
+                  <div class="card__add-info pt-2">
+                    <div class="card__add-info-region">
+                      <p class="text-end">netherland</p>
+                      <p class="">dutch</p>
+                    </div>
+                    <p>Fox News</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col col-card">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="card__add-info pb-2">
+                    <p class="">entertainment</p>
+                    <p class="text-end">2022-02-03 13:49:30</p>
+                  </div>
+                  <h5 class="card-title">
+                    Megerősítve a Ghostwire: Tokyo márciusi megjelenése, friss látnivalókat is kaptunk a
+                    játékból
+                  </h5>
+                  <p class="card-text pt-2">A tegnap esti órákban lezajlott PlayStation Showcase online
+                    esemény részeként minden, és valóban minden a Ghostwire: Tokyo című videojátékról
+                    szólt, mely csapat bár manapság a Microsoft égisze alatt ügyködik, azonban van még
+                    egy tartozásuk a Sony felé. Ezt pedig nemsokára törlesztik majd, hiszen a kérdéses
+                    eventen #link#htt...</p>
+
+                  <div class="card__add-info pt-2">
+                    <p class="">hungarian</p>
+                    <p class="text-end">hungary</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col col-card">
+              <div class="card mb-3">
+                <img src="https://images.midilibre.fr/api/v1/images/view/61fbd9b23e454607aa253d23/standard/image.jpg?v=1"
+                  class="card-img-top" alt="News image">
+                <div class="card-body">
+                  <div class="card__add-info pb-2">
+                    <p class="">Technology</p>
+                    <p class="text-end">2022-02-03 13:49:30</p>
+                  </div>
+                  <h5 class="card-title">
+                    Retour en prison pour les époux Balkany ? La justice révoque leur placement sous
+                    bracelet électronique
+                  </h5>
+                  <p class="card-text pt-2">Selon Le Figaro, la cour d'appel de Rouen a confirmé ce jeudi
+                    3
+                    février la révocation de l'aménagement de peine de Patrick et Isabell</p>
+
+                  <div class="card__add-info pt-2">
+                    <p class="">Polish</p>
+                    <p class="text-end">Poland</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </body>
 
