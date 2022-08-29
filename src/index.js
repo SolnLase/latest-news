@@ -1,21 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client'
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import App from './components/App';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import reducer from "./reducer";
+import App from "./components/App";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import "./index.css";
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'
-import './index.css';
+export const store = createStore(reducer);
+store.subscribe(() => console.log(store.getState()))
 
-
-// import reducer from './reducer';
-
-// const store = createStore(reducer);
-
-// const searchFormRoot = ReactDOM.createRoot(document.getElementById('searchFormRoot'));
-// searchFormRoot.render(<Provider store={store}><SearchInput /></Provider >)
-// searchFormRoot.render(<SearchInput />)
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App/>)
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<Provider store={store}><App /></ Provider>);
