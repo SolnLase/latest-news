@@ -4,7 +4,7 @@
 
 body {
   background-color: #e7e1e1;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 ul {
@@ -26,18 +26,13 @@ ul {
   /* Internet Explorer/Edge */
 }
 
-#root {
-  height: inherit;
-}
-
 .container-lg {
+  height: 100%;
   background-color: white;
   border-left: solid;
   border-right: solid;
   border-color: #e6e0e0;
   border-width: 2.5px;
-  height: inherit;
-  padding: 0;
 }
 
 header {
@@ -50,6 +45,7 @@ header {
 }
 
 header .select-lang__container {
+  width: 30%;
   font-size: smaller;
 }
 
@@ -108,10 +104,6 @@ main {
   margin: 0;
 }
 
-.filters {
-  width: 100%;
-}
-
 .filter {
   font-size: 0.9rem;
   text-transform: capitalize;
@@ -154,11 +146,16 @@ main {
   text-transform: capitalize;
 }
 
+.card-add-info__region {
+  display: flex;
+  width: 45%;
+  justify-content: space-between;
+}
 
 
 @media (min-width: 700px) {
   .cards {
-    padding: 0rem;
+    padding: 0;
   }
 }
 
@@ -211,7 +208,7 @@ main {
   }
 
   .search-form {
-    flex-direction: column-reverse;
+    flex-direction: column;
     gap: 0.5rem
   }
 
