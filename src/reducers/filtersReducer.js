@@ -13,29 +13,23 @@ const filtersReducer = (state = {}, action) => {
       const filterName = action.payload.filterName;
       const parameter = action.payload.param;
       const filterParamsArr = state[filterName];
-      return Object.assign(
-        {
-          [filterName]: filterParamsArr
-            ? filterParamsArr.concat(parameter)
-            : [parameter],
-        },
-        state
-      );
+      return Object.assign(state, {
+        [filterName]: filterParamsArr
+          ? filterParamsArr.concat(parameter)
+          : [parameter],
+      });
     }
     case "REMOVE_FILTER_PARAM": {
       const filterName = action.payload.filterName;
       const parameter = action.payload.param;
       const filterParamsArr = state[filterName];
-      // Remove specified parameter or remove whole filter
+      // Remove specified parameter or remove the whole filter
       return filterParamsArr.length > 1
-        ? Object.assign(
-            {
-              [filterName]: filterParamsArr.filter(
-                (filterParam) => filterParam !== parameter
-              ),
-            },
-            state
-          )
+        ? Object.assign(state, {
+            [filterName]: filterParamsArr.filter(
+              (filterParam) => filterParam !== parameter
+            ),
+          })
         : objectFilter(state, filterName);
     }
     default:

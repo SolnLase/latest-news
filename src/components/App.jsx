@@ -1,13 +1,9 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import useWindowDimensions from "./getWindowDemensions";
 import Filters from "./Filters";
 import NewsCards from "./NewsCards";
 import SearchForm from "./SeachQuery";
-import SelectSiteLanguage from "./SelectSiteLanguage";
 
 export default function App() {
-  const { height, width } = useWindowDimensions();
 
   return (
     <>
@@ -22,7 +18,6 @@ export default function App() {
           >
             Show filters
           </button>
-          {width >= 992 && <SelectSiteLanguage />}
         </div>
         <div className="search-form__container d-flex justify-content-end">
           <SearchForm />
@@ -47,12 +42,11 @@ export default function App() {
             ></button>
           </div>
           <div className="offcanvas-body">
-            {width < 992 && <SelectSiteLanguage />}
             <Filters />
           </div>
         </section>
         <section className="cards col col-12 col-lg-9 col-xxl-10 x-5 pt-5">
-          <NewsCards />
+        <NewsCards />
         </section>
       </main>
     </>

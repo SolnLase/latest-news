@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import $ from "jquery";
 import FILTERS_DATA from "../filtersData";
+import { addFilterParameter, removeFilterParameter } from "../actionCreators";
+import $ from "jquery";
 import { Collapse } from "bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
-import { addFilterParameter, removeFilterParameter } from "../actionCreators";
 
 const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
@@ -82,14 +82,14 @@ class Filter extends React.Component {
         </div>
         <div className="collapse show" id={this.collapseContainerId}>
           <ul className="filter__container">
-            {Object.keys(paramsObj).map((parameterName) => {
-              const parameterValue = paramsObj[parameterName];
-              const parameterId = filterName + capitalize(parameterName);
+            {Object.keys(paramsObj).map((paramName) => {
+              const paramSlug = paramsObj[paramName];
+              const parameterId = filterName + capitalize(paramName);
               return (
                 <FilterParameter
                   filterName={filterName}
-                  parameterName={parameterName}
-                  parameterValue={parameterValue}
+                  paramName={paramName}
+                  paramSlug={paramSlug}
                   parameterId={parameterId}
                   incrementCheckedParams={this.incrementCheckedParams}
                   decrementCheckedParams={this.decrementCheckedParams}
@@ -110,46 +110,32 @@ const FilterParameter = (props) => {
   const didMount = useRef(true);
   const dispatch = useDispatch();
 
-  const url = new URL(window.location);
-
-  const filterName = props.filterName;
-  const parameterValue = props.parameterValue;
-  const canBeChecked = props.canBeChecked;
-
-  const incrementCheckedParams = props.incrementCheckedParams;
-  const decrementCheckedParams = props.decrementCheckedParams;
-
   useEffect(() => {
     if (didMount.current) {
       didMount.current = false;
       return;
     }
     if (checked) {
-      dispatch(addFilterParameter(filterName, parameterValue));
-      url.searchParams.set(filterName, parameterValue);
+      dispatch(addFilterParameter(props.filterName, props.paramSlug));
     } else {
-      dispatch(removeFilterParameter(filterName, parameterValue));
+      dispatch(removeFilterParameter(props.filterName, props.paramSlug));
     }
-  }, [checked, dispatch, filterName, parameterValue]);
-
-  useEffect(() => {
-    window.history.replaceState({}, "", url);
-  }, [url]);
+  }, [checked]);
 
   const handleInputChange = () => {
     if (!checked) {
-      if (canBeChecked) {
+      if (props.canBeChecked) {
         setChecked(true);
-        incrementCheckedParams();
+        props.incrementCheckedParams();
       }
     } else {
       setChecked(false);
-      decrementCheckedParams();
+      props.decrementCheckedParams();
     }
   };
 
   return (
-    <li key={props.parameterName} className="form-check">
+    <li key={props.paramName} className="form-check">
       <div className="form-check">
         <input
           onChange={handleInputChange}
@@ -159,7 +145,7 @@ const FilterParameter = (props) => {
           checked={checked}
         />
         <label className="form-check-label" htmlFor={props.parameterId}>
-          {props.parameterName}
+          {props.paramName}
         </label>
       </div>
     </li>
