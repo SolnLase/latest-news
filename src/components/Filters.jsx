@@ -120,7 +120,7 @@ const FilterParameter = (props) => {
     } else {
       dispatch(removeFilterParameter(props.filterName, props.paramSlug));
     }
-  }, [checked]);
+  }, [checked, dispatch, props.filterName, props.paramSlug]);
 
   const handleInputChange = () => {
     if (!checked) {

@@ -13,7 +13,7 @@ const filtersReducer = (state = {}, action) => {
       const filterName = action.payload.filterName;
       const parameter = action.payload.param;
       const filterParamsArr = state[filterName];
-      return Object.assign(state, {
+      return Object.assign({}, state, {
         [filterName]: filterParamsArr
           ? filterParamsArr.concat(parameter)
           : [parameter],
@@ -25,7 +25,7 @@ const filtersReducer = (state = {}, action) => {
       const filterParamsArr = state[filterName];
       // Remove specified parameter or remove the whole filter
       return filterParamsArr.length > 1
-        ? Object.assign(state, {
+        ? Object.assign({}, state, {
             [filterName]: filterParamsArr.filter(
               (filterParam) => filterParam !== parameter
             ),

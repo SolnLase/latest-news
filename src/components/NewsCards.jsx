@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 import exNewsData from "../exampleNewsData.json";
 
-const buildFetchURL = (query, filters, page=null) => {
+const buildFetchURL = (query, filters, page = null) => {
   // Build url to fetch data from an api with news
 
   const urlElements = [
@@ -34,24 +34,44 @@ const buildFetchURL = (query, filters, page=null) => {
 
 const NewsCards = () => {
   const [newsData, setNewsData] = useState([]);
+  const [serverApi, setServerApi] = useState(true);
+  const query = useSelector((store) => store.query);
+  const filters = useSelector((store) => store.filters);
   const [nextPage, setNextPage] = useState(0);
-  // const query = useSelector((store) => store.query);
-  // const filters = useSelector((store) => store.filters);
-  
-  const fetchData = async () => {
-    const query = [];
-    const filters = [];
-    // const response = await fetch(buildFetchURL(query, filters, nextPage));
-    // const data = await response.json();
-    const data = exNewsData;
+
+  useEffect(() => {
+    async function fetchData() {
+      let data = [];
+      if (serverApi) {
+        const response = await fetch(buildFetchURL(query, filters));
+        data = await response.json();
+      } else {
+        data = exNewsData;
+      }
+      setNewsData(data.results);
+    }
+    fetchData();
+    console.log("useeffect");
+  }, [query, filters, setNewsData, serverApi]);
+
+  const fetchMoreData = async () => {
+    let data = [];
+    if (serverApi) {
+      const response = await fetch(buildFetchURL(query, filters, nextPage));
+      data = await response.json();
+    } else {
+      data = exNewsData;
+    }
     setNewsData(newsData.concat(data.results));
     setNextPage(data.nextPage);
   };
 
+  console.log("newsData", newsData);
+
   return (
     <InfiniteScroll
       dataLength={newsData.length}
-      next={fetchData}
+      next={fetchMoreData}
       hasMore={true}
       loader={<h4>Loading...</h4>}
       style={{ width: "100%" }}
@@ -63,7 +83,7 @@ const NewsCards = () => {
     </InfiniteScroll>
   );
 };
-//
+
 const NewsCard = ({ newsDataObj }) => {
   return (
     <div className="col">
