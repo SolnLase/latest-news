@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
-import exNewsData from "../exampleNewsData.json";
 
 const buildFetchURL = (query, filters, page = null) => {
-  // Build url to fetch data from an api with news
+  // Build url to fetch data from newsdata.io
 
-  const urlElements = [
+  const urlPath = [
     "https://newsdata.io/api/1/news?apikey=pub_8378131dce1e8c3ab8930d2129d88c1b49c7",
   ];
 
-  // Get text query with boolean value whether it should search only in titles and start build the url
-  query &&
-    query.value &&
-    urlElements.push((query.qInTitle ? "qInTitle=" : "q=") + query.value);
+  // Get the text query with boolean value whether it should search only in titles and start building the url
+  query.value &&
+    urlPath.push((query.qInTitle ? "qInTitle=" : "q=") + query.value);
 
-  // Push filters to the url from a state
+  // Push filters to the url from the state
   Object.keys(filters).length &&
-    urlElements.push(
+    urlPath.push(
       Object.entries(filters)
         .map((filter) => {
           const filterName = filter[0];
@@ -26,47 +24,34 @@ const buildFetchURL = (query, filters, page = null) => {
         })
         .join("&")
     );
+  page && urlPath.push(`page=${page}`);
 
-  page && urlElements.push(`page=${page}`);
-
-  return urlElements.join("&");
+  return urlPath.join("&");
 };
 
 const NewsCards = () => {
   const [newsData, setNewsData] = useState([]);
-  const [serverApi, setServerApi] = useState(true);
   const query = useSelector((store) => store.query);
   const filters = useSelector((store) => store.filters);
   const [nextPage, setNextPage] = useState(0);
 
   useEffect(() => {
     async function fetchData() {
-      let data = [];
-      if (serverApi) {
-        const response = await fetch(buildFetchURL(query, filters));
-        data = await response.json();
-      } else {
-        data = exNewsData;
-      }
+      const response = await fetch(buildFetchURL(query, filters));
+      const data = await response.json();
       setNewsData(data.results);
+      setNextPage(data.setNextPage);
     }
     fetchData();
-    console.log("useeffect");
-  }, [query, filters, setNewsData, serverApi]);
+  }, [query, filters, setNewsData, setNextPage]);
 
   const fetchMoreData = async () => {
     let data = [];
-    if (serverApi) {
-      const response = await fetch(buildFetchURL(query, filters, nextPage));
-      data = await response.json();
-    } else {
-      data = exNewsData;
-    }
+    const response = await fetch(buildFetchURL(query, filters, nextPage));
+    data = await response.json();
     setNewsData(newsData.concat(data.results));
     setNextPage(data.nextPage);
   };
-
-  console.log("newsData", newsData);
 
   return (
     <InfiniteScroll
