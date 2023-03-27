@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spot Latest News</title>
+    <!-- font awesome  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- jquery -->
+    <script
+      defer
+      src="https://code.jquery.com/jquery-3.6.4.js"
+      integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="nav">
+          <a href="/" class="nav__logo">Latest News</a>
+          <div class="nav__menu" id="navMenu">
+            <ul class="nav__submenu">
+              <li class="nav__item">
+                <a href="javascript:void(0)" class="nav__link" id="l">
+                  Languages
+                  <i class="nav__icon fa-solid fa-chevron-down"></i>
+                </a>
+                <ul class="nav__dropdown-menu">
+                  <li>
+                    <label class="nav__checkbox-label" for="polish">
+                      <input
+                        class="nav__checkbox"
+                        type="checkbox"
+                        name="polish"
+                        id="polish"
+                      />
+                      Polish
+                    </label>
+                  </li>
+                  <li>
+                    <label class="nav__checkbox-label" for="german">
+                      <input
+                        class="nav__checkbox"
+                        type="checkbox"
+                        name="german"
+                        id="german"
+                      />
+                      German
+                    </label>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav__item">
+                <a href="javascript:void(0)" class="nav__link">
+                  Countries
+                  <i class="nav__icon fa-solid fa-chevron-down"></i>
+                </a>
+                <ul class="nav__dropdown-menu">
+                  <li>
+                    <label class="nav__checkbox-label" for="poland">
+                      <input
+                        class="nav__checkbox"
+                        type="checkbox"
+                        name="poland"
+                        id="poland"
+                      />
+                      Poland
+                    </label>
+                  </li>
+                  <li>
+                    <label class="nav__checkbox-label" for="spain">
+                      <input
+                        class="nav__checkbox"
+                        type="checkbox"
+                        name="spain"
+                        id="spain"
+                      />
+                      Spain
+                    </label>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav__item">
+                <a href="javascript:void(0)" class="nav__link">
+                  Categories
+                  <i class="nav__icon fa-solid fa-chevron-down"></i>
+                </a>
+                <ul class="nav__dropdown-menu">
+                  <li>
+                    <label class="nav__checkbox-label" for="sport">
+                      <input
+                        class="nav__checkbox"
+                        type="checkbox"
+                        name="sport"
+                        id="sport"
+                      />
+                      Sport
+                    </label>
+                  </li>
+                  <li>
+                    <label class="nav__checkbox-label" for="Businesss">
+                      <input
+                        class="nav__checkbox"
+                        type="checkbox"
+                        name="Businesss"
+                        id="Businesss"
+                      />
+                      Businesss
+                    </label>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <form class="nav__q" action="/" method="GET">
+              <input class="nav__text-field" type="text" />
+              <label class="nav__checkbox-label" for="onlyInTitles">
+                Only in titles
+                <input
+                  class="nav__checkbox"
+                  type="checkbox"
+                  name="onlyInTitles"
+                  id="onlyInTitles"
+                />
+              </label>
+            </form>
+            <a
+              href="javascript:void(0)"
+              class="nav__closesidebar-btn fa-solid fa-xmark"
+              id="closeSidebarBtn"
+            ></a>
+          </div>
+          <a
+            href="javascript:void(0)"
+            class="nav__opensidebar-btn fa-solid fa-bars"
+            id="openSidebarBtn"
+          ></a>
+        </nav>
+      </section>
+      <main class="content" style="display: hidden">
+        <article class="card">
+          <img src="image for figma.jpeg" alt="cardImg" class="card__img" />
+          <div class="card__text">
+            <div class="card__header">
+              <div class="card__header-info">
+                <div class="card__row">
+                  <p class="card__category card__short-info">Sport</p>
+                  <p class="card__author card__short-info">Денислав Иванов</p>
+                </div>
+                <div class="card__row">
+                  <p class="card__language card__short-info">Russian</p>
+                  <p class="card__country card__short-info">Russia</p>
+                </div>
+              </div>
+              <a
+                href="#"
+                class="card__external-link fa-solid fa-arrow-up-right-from-square"
+              ></a>
+            </div>
+            <h4 class="card__title">
+              На Юрген Клоп продължава да не му върви срещу испански отбори
+            </h4>
+            <p class="card__description">
+              В сряда вечер тимът на Ливърпул отпадна на 1/8-финалите от
+              Шампионската лига, след като загуби с общ резултат 2:6 от
+              испанския първенец Реал […]
+            </p>
+            <p class="card__time-created card__short-info">
+              Date created: 20.02.2012 19:26:04
+            </p>
+            <p class="card__keywords card__short-info">
+              Keywords: "Élection présidentielle", "Politique", "France -
+              Monde", "Fil Info"
+            </p>
+          </div>
+        </article>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+        <div class="card"></div>
+      </main>
+      <div class="dimmed-bg"></div>
+  </body>
+</html>
