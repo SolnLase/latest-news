@@ -1,48 +1,41 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useState } from "react";
+import { connect, useDispatch } from "react-redux";
 import { addSearchQuery } from "../actionCreators";
+import $ from "jquery";
 
-class SearchQuery extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      value: "",
-      qInTitle: false,
-    };
-  }
+const SearchQuery = () => {
+  const [value, setValue] = useState("");
+  const [qInTitle, setQInTitle] = useState(false);
+  const dispatch = useDispatch();
 
-  handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    this.props.dispatchSearchQuery(this.state.value, this.state.qInTitle);
+    dispatch(addSearchQuery(value, qInTitle));
+    setValue("");
+    $('body').removeClass("sidebar-open");
   };
 
-  render() {
-    return (
-      <form className="header__q" onSubmit={this.handleSubmit}>
-        <input className="header__text-field" type="text" />
-        <label className="header__checkbox-label" htmlFor="onlyInTitles">
-          Only in titles
-          <input
-            className="header__checkbox"
-            id="onlyInTitles"
-            type="checkbox"
-            onClick={() =>
-              this.setState({
-                qInTitle: !this.state.qInTitle,
-              })
-            }
-          />
-        </label>
-      </form>
-    );
-  }
-}
+  return (
+    <form className="header__q" onSubmit={handleSubmit}>
+      <input
+        className="header__text-field"
+        type="text"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      <label className="header__checkbox-label" htmlFor="onlyInTitles">
+        Only in titles
+        <input
+          className="header__checkbox"
+          id="onlyInTitles"
+          type="checkbox"
+          value={qInTitle}
+          onClick={() => setQInTitle(!qInTitle)}
+        />
+      </label>
+    </form>
+  );
+};
 
-const mapDispatchToProps = (dispatch) => ({
-  dispatchSearchQuery: (value, qInTitle) =>
-    dispatch(addSearchQuery(value, qInTitle)),
-});
-
-const SearchQueryContainer = connect(null, mapDispatchToProps)(SearchQuery);
-
-export default SearchQueryContainer;
+export default SearchQuery;

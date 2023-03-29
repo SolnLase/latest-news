@@ -1,3 +1,4 @@
+
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case "ADD_QUERY":
@@ -5,10 +6,14 @@ const reducer = (state = {}, action) => {
     case "ADD_FILTER":
       const filterName = action.payload.filterName;
       const parameters = action.payload.params;
-      return {
-        ...state,
-        filters: { ...state.filters, [filterName]: parameters },
-      };
+      if (parameters.length) {
+        return {
+          ...state,
+          filters: { ...state.filters, [filterName]: parameters },
+        };
+      } else {
+        return state;
+      }
   }
   return state;
 };

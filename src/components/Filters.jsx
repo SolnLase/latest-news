@@ -29,8 +29,6 @@ const Filter = (props) => {
   const paramsObj = props.paramsObj;
   const dispatch = useDispatch();
 
-  filterName === "countries" && console.log("rerender");
-
   useEffect(() => {
     $(document).on(filterName + "DropdownClosed", handleDropdownClosed);
     return () => {

@@ -3,17 +3,18 @@ $("#openSidebarBtn").on("click", () => {
 });
 $("#closeSidebarBtn").on("click", () => $("body").removeClass("sidebar-open"));
 
-// Open / Closes dropdowns, also closes the sidebar eventually
+// Determines which html element was clicked, and based on that opens/closes dropdown menus
+// and the sidebar eventually
 $("html").on("click", (e) => {
-  // Find from the clicked element the closest dropdown menu, and if so, break from the function
   const headerDropdownMenus = $(".header__dropdown-menu");
   if ($(e.target).closest(headerDropdownMenus).length) {
+    // If the user clicked inside a dropdown menu, don't do anything
     return;
   }
-  // Find from the clicked element the closest header-link
   const currentheaderLink = $(e.target).closest($(".header__link"));
   if (currentheaderLink.length) {
-    // Close all other dropdowns, and open it's dropdown
+    // If the user clicked a dropdown link, open the related dropdown,
+    // and close all the other dropdowns
     headerDropdownMenus.each((index, el) => {
       el !== currentheaderLink.next().get(0) &&
         $(el).removeClass("header__dropdown-menu--open");
@@ -26,14 +27,13 @@ $("html").on("click", (e) => {
       document.dispatchEvent(dropdawnClosedEvent);
     }
   } else if (
-    // If closest is headerMenu or openSidebarBtn
     $(e.target).closest("#headerMenu").length ||
     $(e.target).closest("#openSidebarBtn").length
   ) {
-    // Break from the function
+    // If the user clicked inside the sidebar, don't do anything
     return;
   } else {
-    // Close all dropdowns and the sidebar if the user clicked somewhere else
+    // Close all the dropdowns and the sidebar if the user clicked somewhere else
     headerDropdownMenus.each((index, el) => {
       if ($(el).hasClass("header__dropdown-menu--open")) {
         $(el).removeClass("header__dropdown-menu--open");
