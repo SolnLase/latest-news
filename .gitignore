@@ -24,5 +24,7 @@ yarn-error.log*
 
 /.vscode
 formatter.py
-to_dict.py
 
+/template
+notes.txt
+to_dict.py

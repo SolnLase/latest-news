@@ -1,7 +1,9 @@
-$("#openSidebarBtn").on("click", () => $("body").addClass("sidebar-open"));
+$("#openSidebarBtn").on("click", () => {
+  $("body").addClass("sidebar-open");
+});
 $("#closeSidebarBtn").on("click", () => $("body").removeClass("sidebar-open"));
-console.log("da")
-// Open / Closes dropdowns, also closes the sidebar eventually 
+
+// Open / Closes dropdowns, also closes the sidebar eventually
 $("html").on("click", (e) => {
   // Find from the clicked element the closest dropdown menu, and if so, break from the function
   const headerDropdownMenus = $(".header__dropdown-menu");
@@ -16,7 +18,13 @@ $("html").on("click", (e) => {
       el !== currentheaderLink.next().get(0) &&
         $(el).removeClass("header__dropdown-menu--open");
     });
-    currentheaderLink.next().toggleClass("header__dropdown-menu--open");
+    const result = currentheaderLink
+      .next()
+      .toggleClass("header__dropdown-menu--open");
+    if (!result.hasClass("header__dropdown-menu--open")) {
+      const dropdawnClosedEvent = new Event(result[0].id + "DropdownClosed");
+      document.dispatchEvent(dropdawnClosedEvent);
+    }
   } else if (
     // If closest is headerMenu or openSidebarBtn
     $(e.target).closest("#headerMenu").length ||
@@ -26,9 +34,13 @@ $("html").on("click", (e) => {
     return;
   } else {
     // Close all dropdowns and the sidebar if the user clicked somewhere else
-    headerDropdownMenus.each((index, el) =>
-      $(el).removeClass("header__dropdown-menu--open")
-    );
+    headerDropdownMenus.each((index, el) => {
+      if ($(el).hasClass("header__dropdown-menu--open")) {
+        $(el).removeClass("header__dropdown-menu--open");
+        const dropdawnClosedEvent = new Event($(el)[0].id + "DropdownClosed");
+        document.dispatchEvent(dropdawnClosedEvent);
+      }
+    });
     $("body").removeClass("sidebar-open");
   }
 });

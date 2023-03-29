@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 
+import data from "./newsdataObj";
+
 const buildFetchURL = (query, filters, page = null) => {
   // Build url to fetch data from newsdata.io
 
@@ -37,18 +39,17 @@ const NewsCards = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch(buildFetchURL(query, filters));
-      const data = await response.json();
+      // const response = await fetch(buildFetchURL(query, filters));
+      // const data = await response.json();
       setNewsData(data.results);
-      setNextPage(data.setNextPage);
+      setNextPage(data.nextPage);
     }
     fetchData();
   }, [query, filters, setNewsData, setNextPage]);
 
   const fetchMoreData = async () => {
-    let data = [];
-    const response = await fetch(buildFetchURL(query, filters, nextPage));
-    data = await response.json();
+    // const response = await fetch(buildFetchURL(query, filters, nextPage));
+    // data = await response.json();
     setNewsData(newsData.concat(data.results));
     setNextPage(data.nextPage);
   };
@@ -58,9 +59,8 @@ const NewsCards = () => {
       dataLength={newsData.length}
       next={fetchMoreData}
       hasMore={true}
-      loader={<h4>Loading...</h4>}
-      style={{ width: "100%" }}
-      className="row row-cols-1 row-cols-sm-2 row-cols-lg-2 row-cols-xxl-3 gy-5"
+      className="container__grid"
+      style={{ display: "hidden" }}
     >
       {newsData.map((element, index) => (
         <NewsCard key={index} newsDataObj={element} />
@@ -71,36 +71,50 @@ const NewsCards = () => {
 
 const NewsCard = ({ newsDataObj }) => {
   return (
-    <div className="col">
-      <article
-        onClick={() => window.open(newsDataObj.link, "_blank")}
-        className="card mb-3"
-      >
-        {newsDataObj.image_url && (
-          <img
-            src={newsDataObj.image_url}
-            className="card-img-top"
-            alt="News"
-          ></img>
-        )}
-        <div className="card-body">
-          <div className="card__add-info pb-2">
-            <p className="">{newsDataObj.category.join(", ")}</p>
-            <p className="text-end">{newsDataObj.pubDate}</p>
-          </div>
-          <h5 className="card-title">{newsDataObj.title}</h5>
-          <p className="card-text pt-2">{newsDataObj.description}</p>
-
-          <div className="card-add-info pt-2">
-            <div className="card-add-info__region">
-              <p className="text-end">{newsDataObj.country.join(", ")}</p>
-              <p className="">{newsDataObj.language}</p>
+    <article className="card">
+      {newsDataObj.image_url && (
+        <img
+          className="card__img"
+          src={newsDataObj.image_url}
+          alt="Image could not be loaded"
+        ></img>
+      )}
+      <div className="card__text">
+        <div className="card__header">
+          <div className="card__header-info">
+            <div className="card__row">
+              <p className="card__category card__short-info">
+                {newsDataObj.category && newsDataObj.category[0]}
+              </p>
+              <p className="card__author card__short-info">
+                {newsDataObj.creator && newsDataObj.creator[0]}
+              </p>
             </div>
-            <p>{newsDataObj.creator}</p>
+            <div className="card__row">
+              <p className="card__language card__short-info">
+                {newsDataObj.language}
+              </p>
+              <p className="card__country card__short-info">
+                {newsDataObj.country && newsDataObj.country[0]}
+              </p>
+            </div>
           </div>
+          <a
+            className="card__external-link fa-solid fa-arrow-up-right-from-square"
+            href={newsDataObj.link}
+            target="_blank"
+          ></a>
         </div>
-      </article>
-    </div>
+        <h4 className="card__title">{newsDataObj.title}</h4>
+        <p className="card__description">{newsDataObj.description}</p>
+        <time className="card__time-created card__short-info">
+          Date created: {newsDataObj.pubDate}
+        </time>
+        <p className="card__keywords card__short-info">
+          Keywords: {newsDataObj.keywords && newsDataObj.keywords.join(", ")}
+        </p>
+      </div>
+    </article>
   );
 };
 

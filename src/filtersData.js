@@ -1,5 +1,5 @@
 const FILTERS_DATA = {
-  country: {
+  countries: {
     argentina: "ar",
     australia: "au",
     austria: "at",
@@ -63,7 +63,7 @@ const FILTERS_DATA = {
     "united states of america": "us",
     venezuela: "ve",
   },
-  category: {
+  categories: {
     business: "business",
     entertainment: "entertainment",
     environment: "environment",
@@ -76,7 +76,7 @@ const FILTERS_DATA = {
     top: "top",
     world: "world",
   },
-  language: {
+  languages: {
     arabic: "ar",
     bengali: "bn",
     bosnian: "bs",

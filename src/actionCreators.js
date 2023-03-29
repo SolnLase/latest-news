@@ -12,3 +12,8 @@ export const removeFilterParameter = (filterName, param) => ({
   type: "REMOVE_FILTER_PARAM",
   payload: { filterName, param },
 });
+
+export const addFilter = (filterName, params) => ({
+  type: "ADD_FILTER",
+  payload: { filterName, params },
+});
