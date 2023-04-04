@@ -2,5 +2,5 @@ import { createStore } from "redux";
 import reducer from "./reducer";
 
 export const store = createStore(reducer);
-// store.subscribe(() => console.log(store.getState()))
+store.subscribe(() => console.log(store.getState()))
 export default store;

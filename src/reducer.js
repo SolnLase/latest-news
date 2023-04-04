@@ -1,4 +1,3 @@
-
 const reducer = (state = {}, action) => {
   switch (action.type) {
     case "ADD_QUERY":
@@ -14,8 +13,9 @@ const reducer = (state = {}, action) => {
       } else {
         return state;
       }
+    default:
+      return state;
   }
-  return state;
 };
 
 export default reducer;

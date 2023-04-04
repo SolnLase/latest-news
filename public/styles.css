@@ -16,7 +16,9 @@ body {
 }
 
 a {
-  color: inherit;
+  color: inherit;}
+
+.btn {
   cursor: pointer;
 }
 

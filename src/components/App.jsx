@@ -21,15 +21,15 @@ export default function App() {
           <div className="header__menu" id="headerMenu">
             <Filters />
             <SearchForm />
-            <a
-              className="header__closesidebar-btn fa-solid fa-xmark"
+            <i
+              className="header__closesidebar-btn btn fa-solid fa-xmark"
               id="closeSidebarBtn"
-            ></a>
+            ></i>
           </div>
-          <a
-            className="header__opensidebar-btn fa-solid fa-bars"
+          <i
+            className="header__opensidebar-btn btn fa-solid fa-bars"
             id="openSidebarBtn"
-          ></a>
+          ></i>
         </div>
       </header>
       <main className="container">

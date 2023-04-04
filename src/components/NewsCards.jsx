@@ -80,7 +80,7 @@ const NewsCard = ({ newsDataObj }) => {
           className="card__img"
           id=""
           src={newsDataObj.image_url}
-          alt="Image could not be loaded"
+          alt=""
           onError={(e) => (e.target.style.display = "none")}
         ></img>
       )}
@@ -108,7 +108,8 @@ const NewsCard = ({ newsDataObj }) => {
             className="card__external-link fa-solid fa-arrow-up-right-from-square"
             href={newsDataObj.link}
             target="_blank"
-          ></a>
+            rel="noreferrer" 
+          > </a>
         </div>
         <h4 className="card__title">{newsDataObj.title}</h4>
         <p className="card__description">{newsDataObj.description}</p>

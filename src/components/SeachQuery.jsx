@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { connect, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addSearchQuery } from "../actionCreators";
 import $ from "jquery";
 

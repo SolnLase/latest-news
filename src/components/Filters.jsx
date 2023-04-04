@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import $ from "jquery";
 import FILTERS_DATA from "../filtersData";
@@ -41,9 +41,9 @@ const Filter = (props) => {
 
   return (
     <li className="header__item">
-      <a className="header__link">
+      <div className="header__link btn">
         {filterName} <i className="header__icon fa-solid fa-chevron-down"></i>
-      </a>
+      </div>
       <ul className="header__dropdown-menu" id={filterName}>
         {Object.keys(paramsObj).map((paramName) => {
           const paramSlug = paramsObj[paramName];
@@ -78,7 +78,7 @@ const FilterParameter = (props) => {
     } else {
       setChecked(false);
       props.setCheckedParams(
-        props.checkedParams.filter((el) => el != props.paramSlug)
+        props.checkedParams.filter((el) => el !== props.paramSlug)
       );
     }
   };
