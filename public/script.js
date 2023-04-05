@@ -23,7 +23,7 @@ $("html").on("click", (e) => {
       .next()
       .toggleClass("header__dropdown-menu--open");
     if (!result.hasClass("header__dropdown-menu--open")) {
-      const dropdawnClosedEvent = new Event(result[0].id + "DropdownClosed");
+      const dropdawnClosedEvent = new Event("dropdownsClosed");
       document.dispatchEvent(dropdawnClosedEvent);
     }
   } else if (
@@ -37,7 +37,7 @@ $("html").on("click", (e) => {
     headerDropdownMenus.each((index, el) => {
       if ($(el).hasClass("header__dropdown-menu--open")) {
         $(el).removeClass("header__dropdown-menu--open");
-        const dropdawnClosedEvent = new Event($(el)[0].id + "DropdownClosed");
+        const dropdawnClosedEvent = new Event("dropdownsClosed");
         document.dispatchEvent(dropdawnClosedEvent);
       }
     });

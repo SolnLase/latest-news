@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
+import $ from "jquery";
 
 const buildFetchURL = (query, filters, page = null) => {
   // Build url to fetch data from newsdata.io
@@ -36,17 +37,29 @@ const NewsCards = () => {
   const [hasMore, setHasMore] = useState("");
   const query = useSelector((store) => store.query);
   const filters = useSelector((store) => store.filters);
+  const [fetchFilters, setFetchFilters] = useState([]);
 
   useEffect(() => {
-    async function fetchData() {
-      const response = await fetch(buildFetchURL(query, filters));
+    const handleDropdownsClosed = () => {
+      setFetchFilters(filters);
+    };
+    $(document).on("dropdownsClosed", handleDropdownsClosed);
+    return () => {
+      $(document).off("dropdownsClosed", handleDropdownsClosed);
+    };
+  }, [setFetchFilters, filters]);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(buildFetchURL(query, fetchFilters));
       const data = await response.json();
       setNewsData(data.results);
       setNextPage(data.nextPage);
       setHasMore(data.totalResults - data.results.length > 0);
-    }
+    };
     fetchData();
-  }, [query, filters, setNewsData, setNextPage]);
+  }, [query, fetchFilters, setNewsData, setNextPage]);
 
   const fetchMoreData = async () => {
     const response = await fetch(buildFetchURL(query, filters, nextPage));
@@ -108,8 +121,10 @@ const NewsCard = ({ newsDataObj }) => {
             className="card__external-link fa-solid fa-arrow-up-right-from-square"
             href={newsDataObj.link}
             target="_blank"
-            rel="noreferrer" 
-          > </a>
+            rel="noreferrer"
+          >
+            {" "}
+          </a>
         </div>
         <h4 className="card__title">{newsDataObj.title}</h4>
         <p className="card__description">{newsDataObj.description}</p>

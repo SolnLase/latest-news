@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import $ from "jquery";
 import FILTERS_DATA from "../filtersData";
 import { addFilter } from "../actionCreators";
 
@@ -28,16 +27,15 @@ const Filter = (props) => {
   const filterName = props.filterName;
   const paramsObj = props.paramsObj;
   const dispatch = useDispatch();
+  const didMount = useRef(true);
 
   useEffect(() => {
-    $(document).on(filterName + "DropdownClosed", handleDropdownClosed);
-    return () => {
-      $(document).off(filterName + "DropdownClosed", handleDropdownClosed);
-    };
-  });
-  const handleDropdownClosed = () => {
+    if (didMount.current) {
+      didMount.current = false;
+      return;
+    }
     dispatch(addFilter(filterName, checkedParams));
-  };
+  }, [dispatch, filterName, checkedParams]);
 
   return (
     <li className="header__item">
