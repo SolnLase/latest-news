@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import FILTERS_DATA from "../filtersData";
-import { addFilter } from "../actionCreators";
+import { modifyFilters } from "../actionCreators";
 
 const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
@@ -34,7 +34,7 @@ const Filter = (props) => {
       didMount.current = false;
       return;
     }
-    dispatch(addFilter(filterName, checkedParams));
+    dispatch(modifyFilters(filterName, checkedParams));
   }, [dispatch, filterName, checkedParams]);
 
   return (

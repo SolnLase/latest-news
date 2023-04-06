@@ -3,7 +3,7 @@ export const addSearchQuery = (value, qInTitle) => ({
   payload: { value, qInTitle },
 });
 
-export const addFilter = (filterName, params) => ({
-  type: "ADD_FILTER",
+export const modifyFilters = (filterName, params) => ({
+  type: "MODIFY_FILTERS",
   payload: { filterName, params },
 });
