@@ -22,11 +22,11 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-/.vscode
-formatter.py
-
-/template
+.vscode
+.apikey.env
+.dockerignore
+.env
+access.log
+error.log
 notes.txt
-to_dict.py
-/src/components/newsDataObj.js
 README-REACT.md

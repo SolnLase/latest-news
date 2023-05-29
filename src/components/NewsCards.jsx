@@ -2,22 +2,21 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 import $ from "jquery";
+import dummmyResults from "../dummyResults.json";
 
 const buildFetchURL = (query, filters, page = null) => {
   // Build url to fetch data from newsdata.io
-  const urlPath = [
-    "https://newsdata.io/api/1/news?apikey=pub_8378131dce1e8c3ab8930d2129d88c1b49c7",
-  ];
+  const urlQ = [];
 
   // Get the text query with boolean value whether it should search only in titles and start building the url
   query &&
     query.value &&
-    urlPath.push((query.qInTitle ? "qInTitle=" : "q=") + query.value);
+    urlQ.push((query.qInTitle ? "qInTitle=" : "q=") + query.value);
 
   // Push filters to the url from the state
   filters &&
     Object.keys(filters).length &&
-    urlPath.push(
+    urlQ.push(
       Object.entries(filters)
         .map((filter) => {
           const filterName = filter[0];
@@ -26,9 +25,17 @@ const buildFetchURL = (query, filters, page = null) => {
         })
         .join("&")
     );
-  page && urlPath.push(`page=${page}`);
+  page && urlQ.push(`page=${page}`);
 
-  return urlPath.join("&");
+  if (window.location.port === "") {
+    const urlPath = urlQ.length ? "/fetch" : "/fetch/";
+    const relUrl = `${urlPath}?${urlQ.join("&")}`;
+    return relUrl;
+  } else {
+    urlQ.unshift(`apikey=${process.env.REACT_APP_API_KEY}`);
+    const url = `https://newsdata.io/api/1/news?${urlQ.join("&")}`;
+    return url;
+  }
 };
 
 const NewsCards = () => {
@@ -38,6 +45,7 @@ const NewsCards = () => {
   const query = useSelector((store) => store.query);
   const filters = useSelector((store) => store.filters);
   const [fetchFilters, setFetchFilters] = useState([]);
+  const [canFetch, setCanFetch] = useState(true);
 
   useEffect(() => {
     const handleDropdownsClosed = () => {
@@ -49,24 +57,33 @@ const NewsCards = () => {
     };
   }, [setFetchFilters, filters]);
 
-
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(buildFetchURL(query, fetchFilters));
-      const data = await response.json();
+      let data;
+      try {
+        const response = await fetch(buildFetchURL(query, fetchFilters));
+        setNextPage(data.nextPage);
+        setHasMore(data.totalResults - data.results.length > 0);
+        data = await response.json();
+      } catch {
+        data = dummmyResults;
+        setHasMore(true);
+        setCanFetch(false);
+      }
       setNewsData(data.results);
-      setNextPage(data.nextPage);
-      setHasMore(data.totalResults - data.results.length > 0);
     };
     fetchData();
   }, [query, fetchFilters, setNewsData, setNextPage]);
 
   const fetchMoreData = async () => {
-    const response = await fetch(buildFetchURL(query, filters, nextPage));
-    const data = await response.json();
+    if (canFetch) {
+      const response = await fetch(buildFetchURL(query, filters, nextPage));
+      const data = await response.json();
+      setNextPage(data.nextPage);
+      setHasMore(data.totalResults - data.results.length > 0);
+    }
+    let data = dummmyResults;
     setNewsData(newsData.concat(data.results));
-    setNextPage(data.nextPage);
-    setHasMore(data.totalResults - data.results.length > 0);
   };
 
   return (
