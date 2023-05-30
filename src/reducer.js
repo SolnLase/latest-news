@@ -9,10 +9,12 @@ const reducer = (state = {}, action) => {
     case "ADD_QUERY":
       return { ...state, query: action.payload };
     case "MODIFY_FILTERS":
+      // Add, remove or update filters
       const filterName = action.payload.filterName;
       const parameters = action.payload.params;
       if (parameters.length) {
-        // Return state with the parameters in action payload
+        // If parameters related to the filter exist
+        // return the state with parameters in action payload
         return {
           ...state,
           filters: { ...state.filters, [filterName]: parameters },

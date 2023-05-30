@@ -5,10 +5,13 @@ import { addSearchQuery } from "../actionCreators";
 import $ from "jquery";
 
 const SearchQuery = () => {
+  // Query parameters
   const [value, setValue] = useState("");
   const [qInTitle, setQInTitle] = useState(false);
+  
   const dispatch = useDispatch();
 
+  // Dispatch query parameters to redux store, and close the sidebar
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(addSearchQuery(value, qInTitle));

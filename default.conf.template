@@ -9,7 +9,6 @@ server {
     }
 
     location /fetch {
-        # throttling
         set $proxy_url "https://newsdata.io/api/1/news?apikey=${API_KEY}&$args";
         proxy_pass $proxy_url;
         

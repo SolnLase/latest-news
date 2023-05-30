@@ -8,12 +8,12 @@ const buildFetchURL = (query, filters, page = null) => {
   // Build url to fetch data from newsdata.io
   const urlQ = [];
 
-  // Get the text query with boolean value whether it should search only in titles and start building the url
+  // Transform search query object to query string
   query &&
     query.value &&
     urlQ.push((query.qInTitle ? "qInTitle=" : "q=") + query.value);
 
-  // Push filters to the url from the state
+  // Transform filters object to query string seperated
   filters &&
     Object.keys(filters).length &&
     urlQ.push(
@@ -25,13 +25,17 @@ const buildFetchURL = (query, filters, page = null) => {
         })
         .join("&")
     );
+
+  // Transform page object to query string
   page && urlQ.push(`page=${page}`);
 
   if (window.location.port === "") {
+    // Use fetch relative url for fetching data if the page is on nginx server
     const urlPath = urlQ.length ? "/fetch" : "/fetch/";
     const relUrl = `${urlPath}?${urlQ.join("&")}`;
     return relUrl;
   } else {
+    // Use absolute path if the page is on nodejs server
     urlQ.unshift(`apikey=${process.env.REACT_APP_API_KEY}`);
     const url = `https://newsdata.io/api/1/news?${urlQ.join("&")}`;
     return url;
@@ -39,33 +43,41 @@ const buildFetchURL = (query, filters, page = null) => {
 };
 
 const NewsCards = () => {
+  // Parameters for data fetching
   const [newsData, setNewsData] = useState([]);
   const [nextPage, setNextPage] = useState("");
   const [hasMore, setHasMore] = useState("");
+
+  // react-redux hooks
   const query = useSelector((store) => store.query);
   const filters = useSelector((store) => store.filters);
+
+  
   const [fetchFilters, setFetchFilters] = useState([]);
   const [canFetch, setCanFetch] = useState(true);
 
   useEffect(() => {
+    // Add event listener for instruction to fetch data
     const handleDropdownsClosed = () => {
       setFetchFilters(filters);
     };
-    $(document).on("dropdownsClosed", handleDropdownsClosed);
+    $(document).on("fetchData", handleDropdownsClosed);
     return () => {
-      $(document).off("dropdownsClosed", handleDropdownsClosed);
+      $(document).off("fetchData", handleDropdownsClosed);
     };
   }, [setFetchFilters, filters]);
 
   useEffect(() => {
     const fetchData = async () => {
-      let data;
+      let data = {};
+      // If daily number of requests to newsdata is depleted or 400 response
       try {
         const response = await fetch(buildFetchURL(query, fetchFilters));
+        data = await response.json()
         setNextPage(data.nextPage);
         setHasMore(data.totalResults - data.results.length > 0);
-        data = await response.json();
-      } catch {
+      } catch (error) {
+        console.error(error)
         data = dummmyResults;
         setHasMore(true);
         setCanFetch(false);
@@ -82,7 +94,7 @@ const NewsCards = () => {
       setNextPage(data.nextPage);
       setHasMore(data.totalResults - data.results.length > 0);
     }
-    let data = dummmyResults;
+    const data = dummmyResults;
     setNewsData(newsData.concat(data.results));
   };
 

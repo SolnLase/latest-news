@@ -3,8 +3,7 @@ $("#openSidebarBtn").on("click", () => {
 });
 $("#closeSidebarBtn").on("click", () => $("body").removeClass("sidebar-open"));
 
-// Determines which html element was clicked, and based on that opens/closes dropdown menus
-// and the sidebar eventually
+// Determines which html element was clicked, and based on that toggles dropdown menus
 $("html").on("click", (e) => {
   const headerDropdownMenus = $(".header__dropdown-menu");
   if ($(e.target).closest(headerDropdownMenus).length) {
@@ -14,7 +13,7 @@ $("html").on("click", (e) => {
   const currentheaderLink = $(e.target).closest($(".header__link"));
   if (currentheaderLink.length) {
     // If the user clicked a dropdown link, open the related dropdown,
-    // and close all the other dropdowns
+    // close all the other dropdowns, and make and dispatch custom event to fetch data
     headerDropdownMenus.each((index, el) => {
       el !== currentheaderLink.next().get(0) &&
         $(el).removeClass("header__dropdown-menu--open");
@@ -23,7 +22,7 @@ $("html").on("click", (e) => {
       .next()
       .toggleClass("header__dropdown-menu--open");
     if (!result.hasClass("header__dropdown-menu--open")) {
-      const dropdawnClosedEvent = new Event("dropdownsClosed");
+      const dropdawnClosedEvent = new Event("fetchData");
       document.dispatchEvent(dropdawnClosedEvent);
     }
   } else if (
@@ -33,11 +32,12 @@ $("html").on("click", (e) => {
     // If the user clicked inside the sidebar, don't do anything
     return;
   } else {
-    // Close all the dropdowns and the sidebar if the user clicked somewhere else
+    // Close all the dropdowns and the sidebar if the user clicked somewhere else,
+    // and make and dispatch custom event to fetch data
     headerDropdownMenus.each((index, el) => {
       if ($(el).hasClass("header__dropdown-menu--open")) {
         $(el).removeClass("header__dropdown-menu--open");
-        const dropdawnClosedEvent = new Event("dropdownsClosed");
+        const dropdawnClosedEvent = new Event("fetchData");
         document.dispatchEvent(dropdawnClosedEvent);
       }
     });

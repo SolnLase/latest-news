@@ -1,0 +1,15 @@
+.vscode
+node_modules
+build
+.apikey.env
+.env
+.gitignore
+access.log
+default.conf.template
+docker-compose.yaml
+Dockerfile
+error.log
+nginx.conf
+notes.txt
+README-REACT.md
+README.md
