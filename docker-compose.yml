@@ -4,7 +4,6 @@ services:
   web:
     container_name: latest-news
     image: latest-news
-    build: .
     ports:
       - 80:80
     volumes:
