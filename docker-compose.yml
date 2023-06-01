@@ -3,7 +3,7 @@ version: '3.8'
 services:
   web:
     container_name: latest-news
-    image: latest-news
+    image: solnactic/latest-news
     ports:
       - 80:80
     volumes:
