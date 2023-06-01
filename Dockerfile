@@ -11,7 +11,7 @@ RUN npm run build
 FROM nginx
 EXPOSE 80
 
-WORKDIR /usr/share/nginx/html/spotlatestnews
+WORKDIR /var/www/html
 COPY --from=builder /app/build ./
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD [ "nginx" "-g" "daemon off;" ]

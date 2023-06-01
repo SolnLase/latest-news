@@ -1,10 +1,22 @@
 server {
-    listen 80;
-    server_name spotlatestnews.com www.spotlatestnews.com localhost;
-    root /usr/share/nginx/html/spotlatestnews;
-    index index.html index.htm;
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root /var/www/html;
+    server_name spotlatestnews.com www.spotlatestnews.com;
+
+    # RSA certificate
+    ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem; # managed by Certbot
+
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+
+    Redirect non-https traffic to https
+    if ($scheme != "https") {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
 
     location / {
+        index index.html index.htm;
         try_files $uri $uri/ =404;
     }
 

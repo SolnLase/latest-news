@@ -3,13 +3,28 @@ version: '3.8'
 services:
   web:
     container_name: latest-news
-    image: latest-news
+    image: solnactic/latest-news
     ports:
       - 80:80
+      - 443:443
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./default.conf.template:/etc/nginx/templates/default.conf.template:ro
+      - ./default.base.conf.template:/etc/nginx/templates/default.conf.template:ro
+     
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+     
       - ./error.log:/var/log/nginx/error.log
       - ./access.log:/var/log/nginx/access.log
     env_file:
       - .apikey.env
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    command: certonly --webroot --webroot-path=/var/www/certbot --email solnactic@gmail.com --agree-tos --no-eff-email -d spotlatestnews.com -d www.spotlatestnews.com
+    depends_on:
+      - web
