@@ -1,0 +1,36 @@
+server {
+    listen 80;
+    server_name spotlatestnews.com www.spotlatestnews.com;
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name spotlatestnews.com www.spotlatestnews.com;
+
+    ssl_certificate /etc/letsencrypt/live/spotlatestnews.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/spotlatestnews.com/privkey.pem;
+
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    location / {
+        root /var/www/html;
+        index index.html index.htm;
+        try_files $uri $uri/ =404;
+    }
+
+    location /fetch {
+        set $proxy_url "https://newsdata.io/api/1/news?apikey=${API_KEY}&$args";
+        proxy_pass $proxy_url;
+        
+        limit_req zone=one;
+    }    
+}
