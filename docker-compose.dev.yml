@@ -9,7 +9,7 @@ services:
       - 80:80
     volumes:
       - ./data/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./data/default.base.conf.template:/etc/nginx/templates/default.conf.template:ro
+      - ./data/default.dev.conf.template:/etc/nginx/templates/default.conf.template:ro
       - ./error.log:/var/log/nginx/error.log
       - ./access.log:/var/log/nginx/access.log
     env_file:
