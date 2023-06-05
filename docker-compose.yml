@@ -14,7 +14,7 @@ services:
       - ./error.log:/var/log/nginx/error.log
       - ./access.log:/var/log/nginx/access.log
     env_file:
-      - .apikey.env
+      - .env.apikey
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
   certbot:
     container_name: latest-news-certbot
