@@ -23,9 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 .vscode
-.apikey.env
+.env.apikey
 .env
-.gitignore
 access.log
 error.log
 notes.txt

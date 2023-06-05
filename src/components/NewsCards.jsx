@@ -52,7 +52,8 @@ const NewsCards = () => {
   const query = useSelector((store) => store.query);
   const filters = useSelector((store) => store.filters);
 
-  
+  // Key-value filters from redux store, and whether the instance of the app is able to fetch or not
+  // If depleted the instance won't be able to fetch, unless the page is reloaded
   const [fetchFilters, setFetchFilters] = useState([]);
   const [canFetch, setCanFetch] = useState(true);
 
@@ -69,15 +70,17 @@ const NewsCards = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      let data = {};
+      let data;
       // If daily number of requests to newsdata is depleted or 400 response
       try {
+        // Fetch data
         const response = await fetch(buildFetchURL(query, fetchFilters));
-        data = await response.json()
+        data = await response.json();
         setNextPage(data.nextPage);
         setHasMore(data.totalResults - data.results.length > 0);
       } catch (error) {
-        console.error(error)
+        // Use dummy data instead
+        console.error(error);
         data = dummmyResults;
         setHasMore(true);
         setCanFetch(false);
@@ -88,13 +91,16 @@ const NewsCards = () => {
   }, [query, fetchFilters, setNewsData, setNextPage]);
 
   const fetchMoreData = async () => {
+    // Fetch data when the client is scrolling down
+    let data;
     if (canFetch) {
       const response = await fetch(buildFetchURL(query, filters, nextPage));
-      const data = await response.json();
+      data = await response.json();
       setNextPage(data.nextPage);
       setHasMore(data.totalResults - data.results.length > 0);
+    } else {
+      data = dummmyResults;
     }
-    const data = dummmyResults;
     setNewsData(newsData.concat(data.results));
   };
 

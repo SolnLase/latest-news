@@ -30,10 +30,12 @@ const Filter = (props) => {
   const didMount = useRef(true);
 
   useEffect(() => {
+    // Skip this block when the component is mounted
     if (didMount.current) {
       didMount.current = false;
       return;
     }
+    // Add, remove, modify filters
     dispatch(modifyFilters(filterName, checkedParams));
   }, [dispatch, filterName, checkedParams]);
 
@@ -68,7 +70,9 @@ const FilterParameter = (props) => {
   const [checked, setChecked] = useState(false);
 
   const handleInputChange = () => {
+    // Check, uncheck; add parameters to parent component filter's state
     if (!checked) {
+      // Check if the limit of 4 parameters checked at the same time isn't exceeded
       if (props.canBeChecked) {
         setChecked(true);
         props.setCheckedParams(props.checkedParams.concat(props.paramSlug));
