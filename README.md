@@ -1,6 +1,7 @@
 # Latest News
 This is a web application based on React, Redux (for managing states, instead of keyword arguments in URL) and external API provied by newsdata.io to view the latest news from all around the globe, also based on filters and queries.
 You can apply filters by checking them and closing all menus (including sidebar on smaller devices).
+> Api keys in older version of this repository, when this repository wasn't public yet, aren't valid.
 > It can show the same result when scrolling down since 
 *newsdata.io* sometimes sends results with nextPage=None, which results in me sending them request with the keyword argument page=None. I have reported that, and they are working on it.
 
