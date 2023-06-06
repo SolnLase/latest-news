@@ -6,6 +6,9 @@ You can apply filters by checking them and closing all menus (including sidebar 
 > It can show the same result when scrolling down since 
 *newsdata.io* sometimes sends results with nextPage=None, which results in me sending them request with the keyword argument page=None. I have reported that, and they are working on it.
 
+## Preview
+The preview of this project is available under this address: spotlatestnews.com
+
 ## Installation
 You can:
 - install it and run it on *node server* using **npm install** and **npm start**

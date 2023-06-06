@@ -4,16 +4,17 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import $ from "jquery";
 import dummmyResults from "../dummyResults.json";
 
+// Function to construct fetch URL
 const buildFetchURL = (query, filters, page = null) => {
-  // Build url to fetch data from newsdata.io
+  // Start with an empty list of query parameters
   const urlQ = [];
 
-  // Transform search query object to query string
+  // If a query value exists, append it to the URL parameters
   query &&
     query.value &&
     urlQ.push((query.qInTitle ? "qInTitle=" : "q=") + query.value);
 
-  // Transform filters object to query string seperated
+  // If filters exist, convert them to URL parameters and append
   filters &&
     Object.keys(filters).length &&
     urlQ.push(
@@ -26,72 +27,79 @@ const buildFetchURL = (query, filters, page = null) => {
         .join("&")
     );
 
-  // Transform page object to query string
+  // If page exists, append it as a URL parameter
   page && urlQ.push(`page=${page}`);
 
+  // If we're running on a server, use a relative URL, otherwise use an absolute URL
   if (window.location.port === "") {
-    // Use fetch relative url for fetching data if the page is on nginx server
+    // Construct a relative URL
     const urlPath = urlQ.length ? "/fetch" : "/fetch/";
     const relUrl = `${urlPath}?${urlQ.join("&")}`;
     return relUrl;
   } else {
-    // Use absolute path if the page is on nodejs server
+    // Add API key to the URL parameters
     urlQ.unshift(`apikey=${process.env.REACT_APP_API_KEY}`);
     const url = `https://newsdata.io/api/1/news?${urlQ.join("&")}`;
     return url;
   }
 };
 
+// Function component to display news cards
 const NewsCards = () => {
-  // Parameters for data fetching
+  // State for storing the news data, next page, and whether there's more data
   const [newsData, setNewsData] = useState([]);
   const [nextPage, setNextPage] = useState("");
   const [hasMore, setHasMore] = useState("");
 
-  // react-redux hooks
+  // Get current query and filters from Redux store
   const query = useSelector((store) => store.query);
   const filters = useSelector((store) => store.filters);
 
-  // Key-value filters from redux store, and whether the instance of the app is able to fetch or not
-  // If depleted the instance won't be able to fetch, unless the page is reloaded
-  const [fetchFilters, setFetchFilters] = useState([]);
+  // State for whether we can fetch and the current filters for querying
+  const [filtersQ, setFiltersQ] = useState([]);
   const [canFetch, setCanFetch] = useState(true);
 
   useEffect(() => {
-    // Add event listener for instruction to fetch data
-    const handleDropdownsClosed = () => {
-      setFetchFilters(filters);
+    // Listen for when the dropdown or sidebar closes, and set the filters accordingly
+    const handleMustFetch = () => {
+      setFiltersQ(filters);
     };
-    $(document).on("fetchData", handleDropdownsClosed);
+
+    if (!$("body").hasClass("sidebar-open")) {
+      $(document).on("dropdownClosed", handleMustFetch);
+      return () => {
+        $(document).off("dropdownClosed", handleMustFetch);
+      };
+    }
+    // Listen if any sidebar was closed and if so add them to filtersQ state
+    $(document).on("sidebarClosed", handleMustFetch);
     return () => {
-      $(document).off("fetchData", handleDropdownsClosed);
+      $(document).off("sidebarClosed", handleMustFetch);
     };
-  }, [setFetchFilters, filters]);
+  }, [setFiltersQ, filters]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const dropdownClosed = async () => {
       let data;
-      // If daily number of requests to newsdata is depleted or 400 response
       try {
         // Fetch data
-        const response = await fetch(buildFetchURL(query, fetchFilters));
+        const response = await fetch(buildFetchURL(query, filtersQ));
         data = await response.json();
         setNextPage(data.nextPage);
         setHasMore(data.totalResults - data.results.length > 0);
-      } catch (error) {
-        // Use dummy data instead
-        console.error(error);
+      } catch {
+        // Use dummy data if fetch fails
         data = dummmyResults;
         setHasMore(true);
         setCanFetch(false);
       }
       setNewsData(data.results);
     };
-    fetchData();
-  }, [query, fetchFilters, setNewsData, setNextPage]);
+    dropdownClosed();
+  }, [query, filtersQ, setNewsData, setNextPage]);
 
   const fetchMoreData = async () => {
-    // Fetch data when the client is scrolling down
+    // Fetch more data when scrolling
     let data;
     if (canFetch) {
       const response = await fetch(buildFetchURL(query, filters, nextPage));
@@ -120,9 +128,11 @@ const NewsCards = () => {
   );
 };
 
+// Function component to display a single news card
 const NewsCard = ({ newsDataObj }) => {
   return (
     <article className="card">
+      {/* Display the image if one exists */}
       {newsDataObj.image_url && (
         <img
           className="card__img"
@@ -135,6 +145,7 @@ const NewsCard = ({ newsDataObj }) => {
       <div className="card__text">
         <div className="card__header">
           <div className="card__header-info">
+            {/* Display the category, author, language, and country of the news article */}
             <div className="card__row">
               <p className="card__category card__short-info">
                 {newsDataObj.category && newsDataObj.category[0]}
@@ -152,6 +163,7 @@ const NewsCard = ({ newsDataObj }) => {
               </p>
             </div>
           </div>
+          {/* External link to the news article */}
           <a
             className="card__external-link fa-solid fa-arrow-up-right-from-square"
             href={newsDataObj.link}
@@ -161,11 +173,14 @@ const NewsCard = ({ newsDataObj }) => {
             {" "}
           </a>
         </div>
+        {/* Title and description of the news article */}
         <h4 className="card__title">{newsDataObj.title}</h4>
         <p className="card__description">{newsDataObj.description}</p>
+        {/* Date the news article was created */}
         <time className="card__time-created card__short-info">
           Date created: {newsDataObj.pubDate}
         </time>
+        {/* Keywords for the news article */}
         <p className="card__keywords card__short-info">
           Keywords: {newsDataObj.keywords && newsDataObj.keywords.join(", ")}
         </p>

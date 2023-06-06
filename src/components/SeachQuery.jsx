@@ -8,10 +8,10 @@ const SearchQuery = () => {
   // Query parameters
   const [value, setValue] = useState("");
   const [qInTitle, setQInTitle] = useState(false);
-  
+
   const dispatch = useDispatch();
 
-  // Dispatch query parameters to redux store, and close the sidebar
+  // Dispatch query parameters to Redux store and close the sidebar
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(addSearchQuery(value, qInTitle));
@@ -21,12 +21,14 @@ const SearchQuery = () => {
 
   return (
     <form className="header__q" onSubmit={handleSubmit}>
+      {/* Input field for search query */}
       <input
         className="header__text-field"
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
+      {/* Checkbox to search only in titles */}
       <label className="header__checkbox-label" htmlFor="onlyInTitles">
         Only in titles
         <input

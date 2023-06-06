@@ -1,11 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import FILTERS_DATA from "../filtersData";
-import { modifyFilters } from "../actionCreators";
+import { modifyFilters } from "../actionCreators"
 
+// Function to capitalize first character of a string
 const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
+// Filters component, contains a list of Filter components
 const Filters = () => {
+  // For each key in FILTERS_DATA, create a Filter component
   return (
     <ul className="header__submenu">
       {Object.keys(FILTERS_DATA).map((filterName) => {
@@ -22,23 +25,29 @@ const Filters = () => {
   );
 };
 
+// Filter component, represents a single filter with multiple parameters
 const Filter = (props) => {
+  // State for tracking checked parameters in this filter
   const [checkedParams, setCheckedParams] = useState([]);
   const filterName = props.filterName;
   const paramsObj = props.paramsObj;
+  
+  // Use dispatch from react-redux for dispatching actions
   const dispatch = useDispatch();
+  
+  // useRef to track if the component has mounted
   const didMount = useRef(true);
 
+  // Whenever checkedParams changes (after the initial mount), dispatch an action to modify filters
   useEffect(() => {
-    // Skip this block when the component is mounted
     if (didMount.current) {
       didMount.current = false;
       return;
     }
-    // Add, remove, modify filters
     dispatch(modifyFilters(filterName, checkedParams));
   }, [dispatch, filterName, checkedParams]);
 
+  // Render the Filter component
   return (
     <li className="header__item">
       <div className="header__link btn">
@@ -66,25 +75,29 @@ const Filter = (props) => {
   );
 };
 
+// FilterParameter component, represents a single parameter in a Filter
 const FilterParameter = (props) => {
+  // State for tracking if this parameter is checked
   const [checked, setChecked] = useState(false);
 
-  const handleInputChange = () => {
-    // Check, uncheck; add parameters to parent component filter's state
+  // Function to handle input changes
+  const handleInputChange = useCallback(() => {
     if (!checked) {
-      // Check if the limit of 4 parameters checked at the same time isn't exceeded
       if (props.canBeChecked) {
+        // Check the checkbox, add parameter to the filter's checkedParams
         setChecked(true);
         props.setCheckedParams(props.checkedParams.concat(props.paramSlug));
       }
     } else {
+      // Uncheck the checkbox, remove parameter from the filter's checkedParams
       setChecked(false);
       props.setCheckedParams(
         props.checkedParams.filter((el) => el !== props.paramSlug)
       );
     }
-  };
+  }, [checked, props])
 
+  // Render the FilterParameter component
   return (
     <li key={props.paramName}>
       <label className="header__checkbox-label" htmlFor={props.parameterId}>
