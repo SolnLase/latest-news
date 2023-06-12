@@ -4,7 +4,7 @@ This project is a global news viewer, designed as a web application to keep user
 > Api keys in older version of this repository, when this repository wasn't public yet, aren't valid.
 
 > It can show the same result when scrolling down since 
-*newsdata.io* sometimes sends results with nextPage=None, which results in me sending them request with the keyword argument page=None. I have reported that, and they are working on it.
+*newsdata.io* sometimes sends results with nextPage=None, which results in the app sending them request with the keyword argument page=None. I have reported that, and they are working on it.
 
 ## Preview
 The preview of this project is available under this address: spotlatestnews.com
