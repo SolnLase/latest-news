@@ -1,6 +1,6 @@
 # Latest News
-This is a web application based on React, Redux (for managing states, instead of keyword arguments in URL) and external API provied by *newsdata.io* to view the latest news from all around the globe, also based on filters and queries.
-You can apply filters by checking them and closing all menus (including sidebar on smaller devices).
+This project is a global news viewer, designed as a web application to keep users up-to-date with the latest happenings from around the world. Built using React and Redux for efficient state management, the application taps into the comprehensive resources of newsdata.io via an external API. The application's strength lies in its robust filtering capabilities; users can personalize their news feed by selecting filters and closing all menus, a feature that also extends to the sidebar on smaller devices. By combining modern technology with user-friendly design, this application offers an engaging and personalized news experience.
+
 > Api keys in older version of this repository, when this repository wasn't public yet, aren't valid.
 
 > It can show the same result when scrolling down since 
